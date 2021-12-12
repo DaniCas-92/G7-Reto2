@@ -3,6 +3,7 @@ package com.as;
 import com.as.model.Accessory;
 import com.as.model.User;
 import com.as.repository.crud.AccessoryCrudRepository;
+import com.as.repository.crud.OrderCrudRepository;
 import com.as.repository.crud.UserCrudRepository;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,9 @@ public class RetodosApplication implements CommandLineRunner {
     
     @Autowired
     private AccessoryCrudRepository accessoryCrud;
+    
+    @Autowired
+    private OrderCrudRepository orderCrud;
 
     public static void main(String[] args) {
         SpringApplication.run(RetodosApplication.class, args);
@@ -33,6 +37,7 @@ public class RetodosApplication implements CommandLineRunner {
         
         userRepo.deleteAll();
         accessoryCrud.deleteAll();
+        orderCrud.deleteAll();
 
 //        userRepo.saveAll(List.of(
 //            new User(1, "52369563", "DANIEL CASTRILLON", "CR 19 A 63 C 37", "3256323212", "daniel1@gmail.edu.com", "daniel123.", "ZONA 1", "ADM"),

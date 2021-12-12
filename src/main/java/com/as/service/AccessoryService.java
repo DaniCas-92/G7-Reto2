@@ -87,4 +87,12 @@ public class AccessoryService {
         }).orElse(false);
         return aBoolean;
     }
+    
+    public List<Accessory> productsByPrice(double precio){
+        return repositorio.productsByPrice(precio);
+    }
+    
+    public List<Accessory> findByDescriptionLike(String description){
+        return repositorio.findByDescriptionLike(description);
+    }
 }

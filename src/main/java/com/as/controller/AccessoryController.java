@@ -6,7 +6,6 @@
 package com.as.controller;
 
 import com.as.model.Accessory;
-import com.as.model.User;
 import com.as.service.AccessoryService;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -61,6 +60,16 @@ public class AccessoryController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("reference") String reference) {
         accesorio.borrar(reference);
+    }
+    
+    @GetMapping("/price/{price}")
+    public List<Accessory> productsByPrice(@PathVariable("price") double precio){
+        return accesorio.productsByPrice(precio);
+    }
+    
+    @GetMapping("/description/{description}")
+    public List<Accessory> findByDescriptionLike(@PathVariable("description") String description){
+        return accesorio.findByDescriptionLike(description);
     }
     
 }

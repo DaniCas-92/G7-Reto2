@@ -52,4 +52,12 @@ public class UserRepository {
         repositorio.delete(user);
     }
     
+    public Optional<User> lastUserId(){
+        return repositorio.findTopByOrderByIdDesc();
+    }
+     
+    public List<User> listMonthBirthtDay(String month){
+        return repositorio.findByMonthBirthtDay(month);
+    }
+    
 }

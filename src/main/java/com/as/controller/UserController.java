@@ -70,6 +70,11 @@ public class UserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable("id") int id) {
         servicio.borrar(id);
-    }
+    } 
+    
+    @GetMapping("/birthDay/{month}")
+    public List<User> listMonthBirthtDay(@PathVariable("month") String month){
+        return servicio.listMonthBirthtDay(month);
+    } 
 
 }

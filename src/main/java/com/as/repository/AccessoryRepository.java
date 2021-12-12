@@ -42,4 +42,12 @@ public class AccessoryRepository {
         repositorio.delete(accessory);
     }
     
+    public List<Accessory> productsByPrice(double precio){
+        return repositorio.findByPriceLessThanEqual(precio);
+    }
+    
+    public List<Accessory> findByDescriptionLike(String description){
+        return repositorio.findByDescriptionLike(description);
+    }
+    
 }

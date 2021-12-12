@@ -46,19 +46,28 @@ public class UserService {
     }
 
     public User crear(User user) {
+        //obtiene el maximo id existente en la coleccion
+        Optional<User> userIdMaximo = repositorio.lastUserId();
+        
+        //si el id del Usaurio que se recibe como parametro es nulo, entonces valida el maximo id existente en base de datos
         if (user.getId() == null) {
-            return user;
-        } else {
-            Optional<User> u = repositorio.getUser(user.getId());
-            if(u.isEmpty()){
-                if (existeEmail(user.getEmail()) == false) {
-                    return repositorio.save(user);
-                } else {
-                    return user;
-                }
-            } else{
+            //valida el maximo id generado, si no hay ninguno aun el primer id sera 1
+            if (userIdMaximo.isEmpty())
+                user.setId(1);
+            //si retorna informacion suma 1 al maximo id existente y lo asigna como el codigo del usuario
+            else
+                user.setId(userIdMaximo.get().getId() + 1);
+        }
+        
+        Optional<User> e = repositorio.getUser(user.getId());
+        if (e.isEmpty()) {
+            if (existeEmail(user.getEmail())==false){
+                return repositorio.save(user);
+            }else{
                 return user;
             }
+        }else{
+            return user;
         }
     }
     
@@ -71,6 +80,12 @@ public class UserService {
                 }
                 if (user.getName() != null) {
                     u.get().setName(user.getName());
+                }
+                if (user.getBirthtDay()!= null) {
+                    u.get().setBirthtDay(user.getBirthtDay());
+                }
+                if (user.getMonthBirthtDay()!= null) {
+                    u.get().setMonthBirthtDay(user.getMonthBirthtDay());
                 }
                 if (user.getAddress()!= null) {
                     u.get().setAddress(user.getAddress());
@@ -111,5 +126,9 @@ public class UserService {
             return true; 
         }
     }
+    
+    public List<User> listMonthBirthtDay(String month){
+        return repositorio.listMonthBirthtDay(month);
+    } 
     
 }

@@ -25,56 +25,100 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  *
  * @author tec_danielc
+ * @version 1.0
  */
 @RestController
 @RequestMapping("/api/user")
 @CrossOrigin("*")
 public class UserController {
 
+    /**
+     * Objeto de la clase de servicio user
+     */
     @Autowired
     private UserService servicio;
 
+    /**
+     * Método que retorna una lista de usuarios
+     * @return 
+     */
     @GetMapping("/all")
     public List<User> listarUsuarios() {
         return servicio.listar();
     }
 
+    /**
+     * Método que retorna el usuario consultado
+     * @param iden
+     * @return 
+     */
     @GetMapping("/{id}")
-    public Optional<User> obtenerUsuario(@PathVariable("id") int id) {
-        return servicio.obtenerUsuario(id);
+    public Optional<User> obtenerUsuario(@PathVariable("id") int iden) {
+        return servicio.obtenerUsuario(iden);
     }
 
+    /**
+     * Método que retorna un valor boolean si existe el email
+     * @param email
+     * @return 
+     */
     @GetMapping("/emailexist/{email}")
     public boolean existeEmail(@PathVariable("email") String email) {
         return servicio.existeEmail(email);
     }
 
+    /**
+     * Método que obtiene un usuario con el email y password correspondiente
+     * @param email
+     * @param password
+     * @return 
+     */
     @GetMapping("/{email}/{password}")
     public User autenticarUsuario(@PathVariable("email") String email, @PathVariable("password") String password) {
         return servicio.autenticarUsuario(email, password);
     }
 
+    /**
+     * Método que crea un usuario en la bd
+     * @param user
+     * @return 
+     */
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
     public User registrar(@RequestBody User user) {
         return servicio.crear(user);
     }
 
+    /**
+     * Método que edita un usuario en la bd
+     * @param user
+     * @return 
+     */
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
     public User modificar(@RequestBody User user) {
         return servicio.modificar(user);
     }
 
+    /**
+     * Método que borra un usuario de la bd
+     * @param iden 
+     */
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable("id") int id) {
-        servicio.borrar(id);
+    public void delete(@PathVariable("id") int iden) {
+        servicio.borrar(iden);
     } 
     
-    @GetMapping("/birthDay/{month}")
-    public List<User> listMonthBirthtDay(@PathVariable("month") String month){
-        return servicio.listMonthBirthtDay(month);
-    } 
+    /**
+     * Método que consulta el cumpleaños de una persona
+     * @param month
+     * @return 
+     */
+    //Reto 5: Cumpleaños del mes
+    @GetMapping("/birthday/{month}")
+    public List<User> listBirthtDayMonth(@PathVariable("month") String month){
+        return servicio.listBirthtDayMonth(month);
+    }
 
 }

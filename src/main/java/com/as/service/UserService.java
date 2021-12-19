@@ -15,26 +15,51 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author tec_danielc
+ * @version 1.0
  */
-
 @Service
 public class UserService {
     
+    /**
+     * Objeto de la clase User Repository
+     */
     @Autowired
     private UserRepository repositorio;
 
+    /**
+     * Método que devuelve una lista de usuarios
+     * @return 
+     */
     public List<User> listar(){
         return repositorio.getAll();
     }
 
+    /**
+     * Método que retorna un usuario opcional
+     * @param id
+     * @return 
+     */
     public Optional<User> obtenerUsuario(int id) {
         return repositorio.getUser(id);
     }
 
+    /**
+     * Método que devuelve true en caso de existir email
+     * de lo contrario devuelve false
+     * @param email
+     * @return 
+     */
     public boolean existeEmail(String email) {
         return repositorio.existEmail(email);
     }
 
+    /**
+     * Método que devuelve un usuario null o con datos en caso de existir
+     * en bd
+     * @param email
+     * @param password
+     * @return 
+     */
     public User autenticarUsuario(String email, String password) {
         Optional<User> usuario = repositorio.authenticateUser(email, password);
 
@@ -45,6 +70,11 @@ public class UserService {
         }
     }
 
+    /**
+     * Método que crea un usuario en la bd
+     * @param user
+     * @return 
+     */
     public User crear(User user) {
         //obtiene el maximo id existente en la coleccion
         Optional<User> userIdMaximo = repositorio.lastUserId();
@@ -71,6 +101,11 @@ public class UserService {
         }
     }
     
+    /**
+     * Método que modifica un usuario ya existente en la BD
+     * @param user
+     * @return 
+     */
     public User modificar(User user){
         if (user.getId() != null) {
             Optional<User> u = repositorio.getUser(user.getId());
@@ -116,6 +151,11 @@ public class UserService {
         }
     }
     
+    /**
+     * Método que elimina un usuario de la bd
+     * @param id
+     * @return 
+     */
     public boolean borrar(int id){
         Optional<User> user = repositorio.getUser(id); 
         
@@ -127,8 +167,13 @@ public class UserService {
         }
     }
     
-    public List<User> listMonthBirthtDay(String month){
-        return repositorio.listMonthBirthtDay(month);
-    } 
+    /**
+     * Método que muestra un listado de usuarios según el mes digitado
+     * @param month
+     * @return 
+     */
+    public List<User> listBirthtDayMonth(String month){
+        return repositorio.listBirthtDayMonth(month);
+    }
     
 }

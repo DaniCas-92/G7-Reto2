@@ -22,7 +22,7 @@ public interface UserCrudRepository extends MongoRepository<User, Integer>{
     //db.users.find().limit(1).sort({$natural:-1}) en mongo db
     Optional<User> findTopByOrderByIdDesc();   
     
-    //Reto 5: 
+    //Reto 5: Listado de cumpleaños del mes
     List<User> findByMonthBirthtDay(String month);
     
 }

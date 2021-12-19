@@ -15,48 +15,95 @@ import org.springframework.stereotype.Repository;
 /**
  *
  * @author tec_danielc
+ * @version 1.0
  */
 
 @Repository
 public class UserRepository {
     
+    /**
+     * Objeto de la clase user repository
+     */
     @Autowired
     private UserCrudRepository repositorio;
     
+    /**
+     * Método que retorna todo los usuarios 
+     * @return 
+     */
     public List<User> getAll() {
         return repositorio.findAll();
     }
     
-    public Optional<User> getUser(int id){
-        return repositorio.findById(id);
+    /**
+     * Método que retorna 1 usuario
+     * @param id
+     * @return 
+     */
+    public Optional<User> getUser(int iden){
+        return repositorio.findById(iden);
     }
     
+    /**
+     * Método que valida si existe email en bd
+     * @param email
+     * @return 
+     */
     public boolean existEmail(String email){
         Optional<User> usuario = repositorio.findByEmail(email);
         return !usuario.isEmpty();
     }
     
+    /**
+     * Método que valida que el usuario y contraseña sean corectos
+     * @param email
+     * @param password
+     * @return 
+     */
     public Optional<User> authenticateUser(String email, String password){
         return repositorio.findByEmailAndPassword(email, password);
     }
     
+    /**
+     * Método para almacenar un usuario en bd
+     * @param user
+     * @return 
+     */
     public User save(User user){
         return repositorio.save(user);
     }
     
+    /**
+     * Métod para modificar un usuario existente en bd
+     * @param user
+     * @return 
+     */
     public User update(User user){
         return repositorio.save(user);
     }
     
+    /**
+     * Método para borrar un usuario
+     * @param user 
+     */
     public void delete(User user){
         repositorio.delete(user);
     }
     
+    /**
+     * Método para obtener el último id de usuario
+     * @return 
+     */
     public Optional<User> lastUserId(){
         return repositorio.findTopByOrderByIdDesc();
     }
      
-    public List<User> listMonthBirthtDay(String month){
+    /**
+     * Método para mostrar los usuarios que cumplen en el mes digitado
+     * @param month
+     * @return 
+     */
+    public List<User> listBirthtDayMonth(String month){
         return repositorio.findByMonthBirthtDay(month);
     }
     

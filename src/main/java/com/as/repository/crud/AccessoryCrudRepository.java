@@ -8,6 +8,7 @@ package com.as.repository.crud;
 import com.as.model.Accessory;
 import java.util.List;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 /**
  *
@@ -17,7 +18,7 @@ public interface AccessoryCrudRepository extends MongoRepository<Accessory, Stri
     
     public List<Accessory> findByPriceLessThanEqual(double precio);
     
-    //@Query("{'description':{'$regex':'?0','$options':'i'}}")
+    @Query("{'description':{'$regex':'?0','$options':'i'}}")
     public List<Accessory> findByDescriptionLike(String description);
     
 }
